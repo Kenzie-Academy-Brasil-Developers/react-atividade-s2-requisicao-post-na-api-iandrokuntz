@@ -15,7 +15,7 @@ const Login = ({setIsLoggedIn}) => {
         password: yup.string().required("Inform your password"),
       })
 
-    const {register, handleSubmit, formState: { errors }, setError } = useForm({ resolver: yupResolver(formSchema) })
+    const {register, handleSubmit, formState: { errors }} = useForm({ resolver: yupResolver(formSchema) })
 
     const login = (data) => {
 
@@ -26,14 +26,13 @@ const Login = ({setIsLoggedIn}) => {
                 setIsLoggedIn(true);
                 history.push("/home")
                 toast.success("Login Success")
-      }).catch((err) => {setIsLoggedIn(false); setError("password", {message: "You don't have an access"});
-      
-        });
+      }).catch((err) => toast.error("You don't have an access"));
 
     }
 
     return(
         <div>
+            
             <h1>Login</h1>
             <form onSubmit={handleSubmit(login)}>
                 <input placeholder="Username" {...register("username")}/>
